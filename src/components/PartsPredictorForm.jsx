@@ -12,8 +12,12 @@ import {
   GridItem,
   SimpleGrid,
   Flex,
+  Tooltip,
+  Text,
 } from "@chakra-ui/react";
 import PredictorResult from "./PredictorResult";
+
+import { InfoIcon } from "@chakra-ui/icons";
 
 const PartsPredatorForm = () => {
   const [sku, setSku] = useState("");
@@ -21,7 +25,10 @@ const PartsPredatorForm = () => {
   const [remarks, setRemarks] = useState("");
   const [createDate, setCreateDate] = useState("");
   const [serialNum, setSerialNum] = useState("");
-  const [prdLn, setPrdLn] = useState("");
+  const [prdLn, setPrdLn] = useState("dishwashers");
+  const [param1, setParam1] = useState("");
+  const [param2, setParam2] = useState("");
+  const [param3, setParam3] = useState("");
   const [result, setResult] = useState("");
 
   const handleSubmit = async (event) => {
@@ -34,26 +41,118 @@ const PartsPredatorForm = () => {
       create_date: encodeURIComponent(createDate),
       serial_num: encodeURIComponent(serialNum),
       prd_ln: encodeURIComponent(prdLn),
-      param1: encodeURIComponent(""), // Placeholder
-      param2: encodeURIComponent(""), // Placeholder
-      param3: encodeURIComponent(""), // Placeholder
+      param1: encodeURIComponent(param1), // Placeholder
+      param2: encodeURIComponent(param2), // Placeholder
+      param3: encodeURIComponent(param3), // Placeholder
     };
 
     const queryParams = new URLSearchParams(payload); // Create URLSearchParams object
 
     try {
-      const response = await fetch(
-        `http://10.5.88.175:5005/predict/?${queryParams}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" }, // Remove if not needed for your API
-        }
-      );
+      // const response = await fetch(
+      //   `http://10.5.88.175:5005/predict/?${queryParams}`,
+      //   {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" }, // Remove if not needed for your API
+      //   }
+      // );
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`Error: ${response.statusText}`);
+      // }
 
+      const response =
+        sku === "CDT845P2N8S1"
+          ? {
+              items: {
+                0: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "WASH PUMP MAIN ASM",
+                  ITEM_ID: "WD19X32518",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                1: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "LOWER SPRAY ARM ASM",
+                  ITEM_ID: "WD22X25281",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                2: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "DOOR VENT SEAL",
+                  ITEM_ID: "WD08X10092",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                3: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "GASKET TUB PLASTIC",
+                  ITEM_ID: "WD08X22095",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                4: {
+                  ADDITIONAL_TECH_NEEDED: 1,
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "SUMP OVERMOLD SERVICE KIT",
+                  ITEM_ID: "WD19X28199",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                5: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "INNER DOOR ASM",
+                  ITEM_ID: "WD31X29644",
+                  NOTES: "DD09-21",
+                  QUANTITY: 1,
+                },
+                6: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "DRAIN PUMP ASM",
+                  ITEM_ID: "WD19X25461",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                7: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "TRANSITION PIECE ASM",
+                  ITEM_ID: "WD12X23557",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                8: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "30min",
+                  ITEM_DESCRIPTION: "FAN VENT ASM",
+                  ITEM_ID: "WD24X25325",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+                9: {
+                  ADDITIONAL_TECH_NEEDED: "",
+                  ADDITIONAL_TIME_NEEDED: "",
+                  ITEM_DESCRIPTION: "DETERGENT MODULE",
+                  ITEM_ID: "WD12X28239",
+                  NOTES: "",
+                  QUANTITY: 1,
+                },
+              },
+              status: "S",
+            }
+          : {
+              NO_RECOMMENDATION_REASON:
+                "No Parts Recommended - Inputted appliance model number not valid or complete",
+              status: "E",
+            };
       console.log("response", response);
       setResult(response);
 
@@ -66,12 +165,19 @@ const PartsPredatorForm = () => {
   };
 
   const clearForm = () => {
+    setResult("");
+  };
+
+  const clearAll = () => {
     setSku("");
     setDescription("");
     setRemarks("");
     setCreateDate("");
     setSerialNum("");
     setPrdLn("");
+    setParam1("");
+    setParam2("");
+    setParam3("");
     setResult("");
   };
 
@@ -80,13 +186,13 @@ const PartsPredatorForm = () => {
       templateAreas={`"header header"
                   "nav main"
                   "nav footer"`}
-      gridTemplateRows={"62px 2fr 30px"}
-      gridTemplateColumns={"350px 1fr"}
+      gridTemplateRows={"76px 2fr 30px"}
+      gridTemplateColumns={"400px 1fr"}
       gap="1"
       color="blackAlpha.700"
       fontWeight="bold"
     >
-      <GridItem pl="2" bg="blue.900" area={"header"}>
+      <GridItem p="2" bg="blue.900" area={"header"}>
         <svg width="232.38" height="61.89" role="img">
           <title id="logo-title">GE Appliances, a Haier company</title>
           <defs></defs>
@@ -249,7 +355,17 @@ const PartsPredatorForm = () => {
             </FormControl>
             {
               <FormControl mt={4}>
-                <FormLabel htmlFor="create_date">Create Date</FormLabel>
+                <FormLabel htmlFor="create_date">
+                  <Text mr="2" as="span">
+                    Intended Prediction Date
+                  </Text>
+                  <Tooltip
+                    ml="4"
+                    label="Enter date to reference connected data for this appliance. Prediction will not consider connected data after this date."
+                  >
+                    <InfoIcon color="red.600" />
+                  </Tooltip>
+                </FormLabel>
                 <Input
                   id="create_date"
                   value={createDate}
@@ -283,34 +399,72 @@ const PartsPredatorForm = () => {
                 {/* Add more options as needed */}
               </Select>
             </FormControl>
-            <Button mt={4} type="submit">
+            <FormControl mt={4}>
+              <FormLabel htmlFor="serial_num">Param 1</FormLabel>
+              <Input
+                id="serial_num"
+                value={param1}
+                onChange={(e) => setParam1(e.target.value)}
+                placeholder="Any aditional param"
+                disabled
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel htmlFor="serial_num">Param 2</FormLabel>
+              <Input
+                id="serial_num"
+                value={param2}
+                onChange={(e) => setParam2(e.target.value)}
+                placeholder="Any aditional param"
+                disabled
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel htmlFor="serial_num">Param 3</FormLabel>
+              <Input
+                id="serial_num"
+                value={param3}
+                onChange={(e) => setParam3(e.target.value)}
+                placeholder="Any aditional param"
+                disabled
+              />
+            </FormControl>
+            <Button mt={4} mr={4} type="submit" bg="green.100">
               Submit
             </Button>
+            {result && (
+              <Fragment>
+                <Button
+                  mt={4}
+                  mr={4}
+                  type="button"
+                  onClick={clearAll}
+                  bg="red.100"
+                >
+                  Clear All
+                </Button>
+
+                <Button mt={4} type="button" onClick={clearForm} bg="red.100">
+                  Clear Results
+                </Button>
+              </Fragment>
+            )}
           </Box>
         </Box>
       </GridItem>
       <GridItem pl="2" area={"main"}>
         {result ? (
           <Fragment>
-            <SimpleGrid columns={1} spacing={10}>
-              <Box p="6">
-                <PredictorResult retuls={result} />
-              </Box>
-              <Box p="6">
-                <Button mt={4} type="button" onClick={clearForm} bg="gray.200">
-                  Clear
-                </Button>
-              </Box>
-            </SimpleGrid>
+            <PredictorResult retuls={result} />
           </Fragment>
         ) : (
-          <Flex>
-            <Center>
-              <Box p="6">
-                <p>Plesae submit the form</p>
-              </Box>
-            </Center>
-          </Flex>
+          <Box>
+            <Flex>
+              <Center w="100%" h="100vh">
+                <Text color="green.300">Plesae submit the form</Text>
+              </Center>
+            </Flex>
+          </Box>
         )}
       </GridItem>
       <GridItem pl="2" area={"footer"}>
