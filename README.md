@@ -68,3 +68,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+JWT
+
+https://clerk.com/blog/adding-jwt-authentication-to-react
+
+
+https://www.bezkoder.com/react-jwt-auth/
+
+
+CRUD
+https://www.bezkoder.com/react-crud-web-api/
+
+https://github.com/bezkoder/react-crud-web-api
+
+https://github.com/kedarge/react-crud-web-api/blob/master/src/index.js

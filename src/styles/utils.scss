@@ -1,0 +1,70 @@
+.fs-small {
+    font-size: small;
+  }
+  
+  .fs-smaller {
+    font-size: smaller;
+  }
+  
+  .fs-x-small {
+    font-size: x-small;
+  }
+  
+  .ff-monospace {
+    font-family: monospace;
+  }
+  
+  .gradient-custom {
+    /* fallback for old browsers */
+    background: #003b71;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(
+      to right,
+      rgba(0, 59, 113, 1),
+      rgba(14, 89, 157, 1)
+    );
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(
+      to right,
+      rgba(0, 59, 113, 1),
+      rgba(14, 89, 157, 1)
+    );
+  }
+  
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+  
+  .zindex-dropdown {
+    z-index: 1000;
+  }
+  .zindex-sticky {
+    z-index: 1020;
+  }
+  .zindex-fixed {
+    z-index: 1030;
+  }
+  .zindex-modal-backdrop {
+    z-index: 1040;
+  }
+  .zindex-offcanvas {
+    z-index: 1050;
+  }
+  .zindex-modal {
+    z-index: 1060;
+  }
+  .zindex-popover {
+    z-index: 1070;
+  }
+  .zindex-tooltip {
+    z-index: 1080;
+  }
+  

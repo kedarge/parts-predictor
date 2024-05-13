@@ -1,0 +1,32 @@
+$primary: #0e2d44 !default;
+$secondary: #12212e !default; // Action color
+$success: #218142 !default;
+$info: #ff7d50 !default;
+$warning: #ffc01f !default;
+$danger: #c54b25 !default;
+$light: #f7f1e7 !default;
+$dark: #3e5769 !default;
+$body-color: #495057 !default;
+$document-lock: rgb(209, 135, 0);
+$question: #A36A00 !default;
+
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "body-color": $body-color,
+  "document-lock": $document-lock,
+  "question": $question,
+);
+
+@import url("//fonts.googleapis.com/css?family=Roboto");
+@import "utils";
+
+.logo {
+  fill: #FFF;
+}
