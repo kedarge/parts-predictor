@@ -10,12 +10,17 @@ import {
   // Container,
   Grid,
   GridItem,
-  SimpleGrid,
+  // SimpleGrid,
   Flex,
   Tooltip,
   Text,
+  ButtonGroup,
+  Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import PredictorResult from "./PredictorResult";
+
+import axios from "axios";
 
 import { InfoIcon } from "@chakra-ui/icons";
 
@@ -30,6 +35,22 @@ const PartsPredatorForm = () => {
   const [param2, setParam2] = useState("");
   const [param3, setParam3] = useState("");
   const [result, setResult] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toast = useToast();
+
+  const isFormNotEmpty = () => {
+    return Boolean(
+      sku ||
+        description ||
+        remarks ||
+        createDate ||
+        serialNum ||
+        param1 ||
+        param2 ||
+        param3
+    );
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,18 +70,38 @@ const PartsPredatorForm = () => {
     const queryParams = new URLSearchParams(payload); // Create URLSearchParams object
 
     try {
-      // const response = await fetch(
-      //   `http://10.5.88.175:5005/predict/?${queryParams}`,
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" }, // Remove if not needed for your API
-      //   }
-      // );
-
-      // if (!response.ok) {
-      //   throw new Error(`Error: ${response.statusText}`);
-      // }
-
+      setIsLoading(true);
+      await axios
+        .get(`http://10.5.88.175:5005/predict/?${queryParams}`)
+        .then((res) => {
+          console.log("response", res.data);
+          setIsLoading(false);
+          setResult(res.data);
+          toast({
+            title: "API Response received.",
+            description:
+              res.data?.status === "S"
+                ? "Showing results!"
+                : "Someting went wrong!",
+            status: res.data?.status === "S" ? "success" : "error",
+            duration: 9000,
+            isClosable: true,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          toast({
+            title: `${error?.code} - ${error?.name}`,
+            description: error?.message
+              ? `${error?.message} - Someting went wrong!`
+              : "Someting went wrong!",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
+        });
+      console.log("Data posted successfully!");
+      /*
       const response =
         sku === "CDT845P2N8S1"
           ? {
@@ -156,8 +197,28 @@ const PartsPredatorForm = () => {
       console.log("response", response);
       setResult(response);
 
+      setTimeout(() => {
+        setIsLoading(false);
+
+        console.log("result?.status :::", result?.status);
+
+        toast({
+          title: "API Response received.",
+          description:
+            result?.status === "S"
+              ? "Showing results!"
+              : "Someting went wrong!",
+          status: result?.status === "S" ? "success" : "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }, 500);
+
+      
+
       // Handle successful response here (e.g., clear form, show success message)
       console.log("Data posted successfully!");
+      */
     } catch (error) {
       console.error("Error posting data:", error);
       // Handle errors here (e.g., show error message)
@@ -429,42 +490,62 @@ const PartsPredatorForm = () => {
                 disabled
               />
             </FormControl>
-            <Button mt={4} mr={4} type="submit" bg="green.100">
-              Submit
-            </Button>
-            {result && (
-              <Fragment>
-                <Button
-                  mt={4}
-                  mr={4}
-                  type="button"
-                  onClick={clearAll}
-                  bg="red.100"
-                >
+
+            <ButtonGroup variant="outline" spacing="6" mt="4" ml="-3">
+              <Button
+                type="submit"
+                isLoading={isLoading}
+                loadingText="Submitting"
+                disabled={isLoading}
+                bg="green.100"
+              >
+                Submit
+              </Button>
+              {isFormNotEmpty() && !isLoading && (
+                <Button type="button" onClick={clearAll} bg="red.100">
                   Clear All
                 </Button>
-
-                <Button mt={4} type="button" onClick={clearForm} bg="red.100">
+              )}
+              {result && !isLoading && (
+                <Button type="button" onClick={clearForm} bg="red.100">
                   Clear Results
                 </Button>
-              </Fragment>
-            )}
+              )}
+            </ButtonGroup>
           </Box>
         </Box>
       </GridItem>
       <GridItem pl="2" area={"main"}>
-        {result ? (
-          <Fragment>
-            <PredictorResult retuls={result} />
-          </Fragment>
-        ) : (
+        {isLoading ? (
           <Box>
             <Flex>
               <Center w="100%" h="100vh">
-                <Text color="green.300">Plesae submit the form</Text>
+                <Spinner
+                  size="xl"
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                />
               </Center>
             </Flex>
           </Box>
+        ) : (
+          <Fragment>
+            {result ? (
+              <Fragment>
+                <PredictorResult retuls={result} />
+              </Fragment>
+            ) : (
+              <Box>
+                <Flex>
+                  <Center w="100%" h="100vh">
+                    <Text color="green.300">Plesae submit the form</Text>
+                  </Center>
+                </Flex>
+              </Box>
+            )}
+          </Fragment>
         )}
       </GridItem>
       <GridItem pl="2" area={"footer"}>
