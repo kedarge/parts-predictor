@@ -220,8 +220,15 @@ const PartsPredatorForm = () => {
       console.log("Data posted successfully!");
       */
     } catch (error) {
-      console.error("Error posting data:", error);
+      console.error("Error submitting the data:", error);
       // Handle errors here (e.g., show error message)
+      toast({
+        title: `Someting went wrong!`,
+        description: `Error submitting the data: ${error}`,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
