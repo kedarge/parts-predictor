@@ -73,7 +73,7 @@ const PartsPredatorForm = () => {
     try {
       setIsLoading(true);
       await axios
-        .get(`${process.env.REACT_APP_ENVIRONMENT}/predict/?${queryParams}`)
+        .get(`${process.env.REACT_APP_API_ORIGIN}/predict/?${queryParams}`)
         .then((res) => {
           console.log("response", res.data);
           setIsLoading(false);
