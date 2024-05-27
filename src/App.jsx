@@ -1,14 +1,8 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import PartsPredictorForm from "./components/PartsPredictorForm";
-
+import AppRoutes from "./routes";
 function App() {
   return (
-    <ChakraProvider>
-      <PartsPredictorForm />
-    </ChakraProvider>
+    <AppRoutes />
   );
 }
-
-
 
 export default App;
