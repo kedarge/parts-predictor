@@ -1,42 +1,34 @@
-import _isEmpty from "lodash/isEmpty";
-import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { SharedLayout } from "../pages";
-// import { checkAuth } from "../store/actions/auth.actions";
+import React from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { SharedLayout, ProtectedRoute } from "../pages";
 import routes from "./list.routes";
 
 function AppRoutes() {
-  // const { profile } = useSelector(state => state.user);
-
-  const profile = { status: "S" };
-  // const dispatch = useDispatch();
-
-  // useState(() => {
-  //   dispatch(checkAuth());
-  // });
-
-  console.log("profile: ", profile)
-
   return (
     <BrowserRouter>
-      {!_isEmpty(profile) ? (
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            {routes &&
-              routes.map(({ component, path, exact }) => (
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          {routes &&
+            routes.map(({ component, path, exact, isPrivate }) =>
+              isPrivate ? (
                 <Route
-                  exact={exact}
+                  exact={exact ? "true" : undefined}
                   key={`${path}-route`}
-                  path={`${path}`}
+                  path={path}
+                  element={<ProtectedRoute>{component}</ProtectedRoute>}
+                />
+              ) : (
+                <Route
+                  exact={exact ? "true" : undefined}
+                  key={`${path}-route`}
+                  path={path}
                   element={component}
                 />
-              ))}
-          </Route>
-        </Routes>
-      ) : (
-        ""
-      )}
+              )
+            )}
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </BrowserRouter>
   );
 }

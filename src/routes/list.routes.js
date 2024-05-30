@@ -7,7 +7,7 @@ const routes = [
     exact: true,
     displayName: ROUTES.PREDICTOR.TITLE,
     component: <Predictor />,
-    isPrivate: true,
+    isPrivate: true, // Ensure to check if the route is private
     icon: "",
     isDisabled: false,
     module: 0,
@@ -18,7 +18,7 @@ const routes = [
     exact: true,
     displayName: ROUTES.LOGIN.TITLE,
     component: <Login />,
-    isPrivate: true,
+    isPrivate: false, // Login route should not be private
     icon: "",
     isDisabled: false,
     module: 0,

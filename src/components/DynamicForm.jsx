@@ -1,5 +1,5 @@
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import React, { Fragment } from "react";
-import { FormControl, FormLabel, Input, Box } from "@chakra-ui/react";
 
 const DynamicForm = ({ paramNames = [], formData, setFormData }) => {
   const handleChange = (param, value) => {

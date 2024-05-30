@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { GridItem } from "@chakra-ui/react";
 import { LoginForm } from "../components";
 
 const Login = () => {
-  useEffect(() => {
-    console.log("I am in Login Page");
-  },[]);
-  return <LoginForm />;
+  return (
+    <GridItem pl="2" area={"main"}>
+      <LoginForm />
+    </GridItem>
+  );
 };
 
 export default Login;

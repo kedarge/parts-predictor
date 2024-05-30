@@ -8,8 +8,8 @@ import Navbar from "./Navbar";
 export {
   DynamicForm,
   LoginForm,
+  Navbar,
   PartsPredictorForm,
   PredictorResult,
-  Navbar,
   SVGComponent,
 };
