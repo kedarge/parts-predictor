@@ -13,7 +13,9 @@ const Home = ({ user }) => {
   return (
     <Grid
       templateAreas={
-        location.pathname.includes(ROUTES.LOGIN.PATH) ? templateLoginAreas : templateAreas
+        location.pathname.includes(ROUTES.LOGIN.PATH)
+          ? templateLoginAreas
+          : templateAreas
       }
       gridTemplateRows={"76px 2fr 30px"}
       gridTemplateColumns={"400px 1fr"}
@@ -26,8 +28,9 @@ const Home = ({ user }) => {
 
       <GridItem pl="2" area={"footer"}>
         <small>
-          Copyright &copy; 2024 GE Appliances, a Haier company GE is a trademark
-          of the General Electric Company. Manufactured under trademark license.
+          Copyright &copy; {new Date().getFullYear()} GE Appliances, a Haier
+          company GE is a trademark of the General Electric Company.
+          Manufactured under trademark license.
         </small>
       </GridItem>
     </Grid>
