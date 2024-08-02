@@ -29,10 +29,18 @@ const PredictorResult = ({ retuls }) => {
                       <Th>&nbsp;</Th>
                       <Th>ITEM_ID</Th>
                       <Th>ITEM_DESCRIPTION</Th>
-                      <Th isNumeric>QUANTITY</Th>
-                      <Th>NOTES</Th>
-                      <Th>ADDITIONAL_TECH_NEEDED</Th>
-                      <Th>ADDITIONAL_TIME_NEEDED</Th>
+                      <Th>
+                        <Text align="center">QUANTITY</Text>
+                      </Th>
+                      <Th>
+                        <Text align="center">NOTES</Text>
+                      </Th>
+                      <Th>
+                        <Text align="center">ADDITIONAL_TECH_NEEDED</Text>
+                      </Th>
+                      <Th>
+                        <Text align="center">ADDITIONAL_TIME_NEEDED</Text>
+                      </Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -41,13 +49,25 @@ const PredictorResult = ({ retuls }) => {
                         <Td>{Number(item) + 1}</Td>
                         <Td>{retuls.items[item]?.ITEM_ID || "-"}</Td>
                         <Td>{retuls.items[item]?.ITEM_DESCRIPTION || "-"}</Td>
-                        <Td isNumeric>{retuls.items[item]?.QUANTITY || "-"}</Td>
-                        <Td>{retuls.items[item]?.NOTES || "-"}</Td>
                         <Td>
-                          {retuls.items[item]?.ADDITIONAL_TECH_NEEDED || "-"}
+                          <Text align="center">
+                            {retuls.items[item]?.QUANTITY || "-"}
+                          </Text>
                         </Td>
                         <Td>
-                          {retuls.items[item]?.ADDITIONAL_TIME_NEEDED || "-"}
+                          <Text align="center">
+                            {retuls.items[item]?.NOTES || "-"}
+                          </Text>
+                        </Td>
+                        <Td>
+                          <Text align="center">
+                            {retuls.items[item]?.ADDITIONAL_TECH_NEEDED || "-"}
+                          </Text>
+                        </Td>
+                        <Td>
+                          <Text align="center">
+                            {retuls.items[item]?.ADDITIONAL_TIME_NEEDED || "-"}
+                          </Text>
                         </Td>
                       </Tr>
                     ))}
@@ -63,7 +83,10 @@ const PredictorResult = ({ retuls }) => {
           <Box>
             <Flex>
               <Center w="100%" h="100vh">
-              <InfoIcon color="orange.400" /> <Text color="orange.400" ml="2">{retuls.NO_RECOMMENDATION_REASON}</Text>
+                <InfoIcon color="orange.400" />{" "}
+                <Text color="orange.400" ml="2">
+                  {retuls.NO_RECOMMENDATION_REASON}
+                </Text>
               </Center>
             </Flex>
           </Box>{" "}

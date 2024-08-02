@@ -17,7 +17,6 @@ import {
   GridItem,
   Input,
   Select,
-  Spacer,
   Spinner,
   Text,
   Tooltip,
@@ -265,7 +264,7 @@ const PartsPredictorForm = () => {
               </Select>
             </FormControl>
 
-            {stringApi.isNotNilOrEmptyString(paramNames) && (
+            {paramNames[0]?.trim() !== "" && (
               <DynamicForm
                 paramNames={paramNames}
                 formData={formData}
@@ -358,6 +357,7 @@ const PartsPredictorForm = () => {
                 <Button
                   colorScheme="red"
                   onClick={() => {
+                    clearForm();
                     clearAll();
                     onClose();
                   }}

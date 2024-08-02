@@ -24,8 +24,7 @@ const LoginForm = () => {
   const toast = useToast();
 
   useEffect(() => {
-    sessionStorage.setItem("isLoggedIn", "false");
-    sessionStorage.setItem("userSSO", "");
+    sessionStorage.setItem("user", btoa(JSON.stringify({ isLoggedIn: false })));
   }, []);
 
   const handleSignIn = async () => {
@@ -48,11 +47,16 @@ const LoginForm = () => {
 
           if (res?.data?.status === "S") {
             // setup the session
-            sessionStorage.setItem("isLoggedIn", "true");
-            sessionStorage.setItem("userSSO", sso);
+            // sessionStorage.setItem("isLoggedIn", "true");
+            // sessionStorage.setItem("userSSO", sso);
+            const encodedUser = btoa(
+              JSON.stringify({ isLoggedIn: true, userSSO: sso })
+            );
+            sessionStorage.setItem("user", encodedUser);
           } else {
-            sessionStorage.setItem("isLoggedIn", "false");
-            sessionStorage.setItem("userSSO", "");
+            // sessionStorage.setItem("isLoggedIn", "false");
+            // sessionStorage.setItem("userSSO", "");
+            sessionStorage.setItem("user", btoa(JSON.stringify({ isLoggedIn: false })));
           }
 
           console.log("res ::", res);
@@ -141,6 +145,7 @@ const LoginForm = () => {
                 _hover={{
                   bg: "blue.500",
                 }}
+                type="submit"
                 onClick={handleSignIn}
               >
                 Sign in
