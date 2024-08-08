@@ -82,7 +82,12 @@ const PartsPredictorForm = () => {
     try {
       setIsLoading(true);
       await axios
-        .get(`${process.env.REACT_APP_API_ORIGIN}/predict/?${queryParams}`)
+        .get(`${process.env.REACT_APP_API_ORIGIN}/predict/?${queryParams}`, {
+          headers: {
+            "api_key": "cfa9c09818b5448b8c39177b1e583dcc99", // Replace with your actual API key
+            "api-key": "cfa9c09818b5448b8c39177b1e583dcc99",
+          },
+        })
         .then((res) => {
           setIsLoading(false);
           setResult(res.data);

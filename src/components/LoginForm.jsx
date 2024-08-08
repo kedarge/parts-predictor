@@ -31,9 +31,14 @@ const LoginForm = () => {
     // Validate email and password
     // /authenticate/?uname="320003207"&pwd="testing123"
 
+    // const queryParams = new URLSearchParams({
+    //   uname: encodeURIComponent(`"${sso}"`), // Encode each parameter value
+    //   pwd: encodeURIComponent(`"${password}"`),
+    // });
+
     const queryParams = new URLSearchParams({
-      uname: encodeURIComponent(`"${sso}"`), // Encode each parameter value
-      pwd: encodeURIComponent(`"${password}"`),
+      uname: `"${sso}"`, // The double quote is required 
+      pwd: `"${password}"`,
     });
 
     try {
@@ -55,7 +60,10 @@ const LoginForm = () => {
           } else {
             // sessionStorage.setItem("isLoggedIn", "false");
             // sessionStorage.setItem("userSSO", "");
-            sessionStorage.setItem("user", btoa(JSON.stringify({ isLoggedIn: false })));
+            sessionStorage.setItem(
+              "user",
+              btoa(JSON.stringify({ isLoggedIn: false }))
+            );
           }
 
           // show the tost message
