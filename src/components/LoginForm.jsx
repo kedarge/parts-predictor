@@ -32,8 +32,8 @@ const LoginForm = () => {
     // /authenticate/?uname="320003207"&pwd="testing123"
 
     const queryParams = new URLSearchParams({
-      uname: encodeURIComponent(sso), // Encode each parameter value
-      pwd: encodeURIComponent(password),
+      uname: encodeURIComponent(`"${sso}"`), // Encode each parameter value
+      pwd: encodeURIComponent(`"${password}"`),
     });
 
     try {
@@ -41,7 +41,6 @@ const LoginForm = () => {
       await axios
         .get(`${process.env.REACT_APP_API_ORIGIN}/authenticate/?${queryParams}`)
         .then((res) => {
-          console.log("response", res.data);
           setIsLoading(false);
           // setResult(res.data);
 
@@ -58,8 +57,6 @@ const LoginForm = () => {
             // sessionStorage.setItem("userSSO", "");
             sessionStorage.setItem("user", btoa(JSON.stringify({ isLoggedIn: false })));
           }
-
-          console.log("res ::", res);
 
           // show the tost message
           toast({

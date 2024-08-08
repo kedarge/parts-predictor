@@ -24,7 +24,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import stringApi from "js_str_utils";
+// import stringApi from "js_str_utils";
 import React, { Fragment, useState } from "react";
 import { getToday /*, fakeResponse */ } from "../utills/utills";
 import { DynamicForm, PredictorResult, SVGComponent } from "./";
@@ -79,17 +79,11 @@ const PartsPredictorForm = () => {
       ),
     }); // Create URLSearchParams object
 
-    console.log(
-      "queryParams :::",
-      `${process.env.REACT_APP_API_ORIGIN}/predict/?${queryParams}`
-    );
-
     try {
       setIsLoading(true);
       await axios
         .get(`${process.env.REACT_APP_API_ORIGIN}/predict/?${queryParams}`)
         .then((res) => {
-          console.log("response", res.data);
           setIsLoading(false);
           setResult(res.data);
           toast({
@@ -115,7 +109,6 @@ const PartsPredictorForm = () => {
             isClosable: true,
           });
         });
-      console.log("Data posted successfully!");
 
       /** Fake data start */
       // const response = fakeResponse(sku);

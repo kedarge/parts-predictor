@@ -8,8 +8,6 @@ const templateLoginAreas = `"header header" "main main" "footer footer"`;
 
 const Home = ({ user }) => {
   const location = useLocation();
-  console.log(location.pathname);
-
   return (
     <Grid
       templateAreas={
